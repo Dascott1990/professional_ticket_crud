@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <div class="index-container">
+        <section class="intro">
+            <h2>Welcome to Ticket Manager</h2>
+            <p>Efficiently manage your tickets from start to finish. Whether you're tracking progress, assigning statuses, or simply keeping notes, Ticket Manager is here to help!</p>
+        </section>
+
+        <section class="features">
+            <h3>Key Features</h3>
+            <ul>
+                <li>
+                    <h4>Create New Tickets</h4>
+                    <p>Easily create new tickets with details like title and description.</p>
+                    <a href="/create-ticket" class="btn btn-primary">Create Ticket</a>
+                </li>
+                <li>
+                    <h4>View All Tickets</h4>
+                    <p>View and manage all your tickets in one place. Track their progress, update their status, and edit details as needed.</p>
+                    <a href="/view-tickets" class="btn btn-secondary">View Tickets</a>
+                </li>
+                <li>
+                    <h4>Update Ticket Status</h4>
+                    <p>Update the status of your tickets (Not Started, In Progress, Completed) and track progress as it happens.</p>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Display tickets if any are available -->
+        <section class="ticket-list">
+            <h3>All Tickets</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                        <th>Progress</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ticket in tickets %}
+                    <tr>
+                        <td>{{ ticket[0] }}</td> <!-- Ticket ID -->
+                        <td>{{ ticket[1] }}</td> <!-- Ticket Title -->
+                        <td>{{ ticket[2] }}</td> <!-- Ticket Description -->
+                        <td>{{ ticket[3] }}</td> <!-- Ticket Status -->
+                        <td>{{ ticket[4] }}%</td> <!-- Ticket Progress -->
+                        <td>
+                            <a href="/update-ticket/{{ ticket[0] }}" class="btn btn-tertiary">Update</a>
+                            <form action="/delete-ticket/{{ ticket[0] }}" method="POST" style="display:inline;">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <div class="form-container">
+        <h2>Update Ticket: {{ ticket[1] }}</h2>
+        <form method="POST">
+            <label for="status">Status</label>
+            <select name="status" id="status">
+                <option value="Not Started" {% if ticket[3] == "Not Started" %}selected{% endif %}>Not Started</option>
+                <option value="In Progress" {% if ticket[3] == "In Progress" %}selected{% endif %}>In Progress</option>
+                <option value="Completed" {% if ticket[3] == "Completed" %}selected{% endif %}>Completed</option>
+            </select>
+
+            <label for="progress">Progress (%)</label>
+            <input type="number" name="progress" id="progress" min="0" max="100" value="{{ ticket[4] }}" required>
+
+            <button type="submit">Update Ticket</button>
+        </form>
+    </div>
+{% endblock %}
